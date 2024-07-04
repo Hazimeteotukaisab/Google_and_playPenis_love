@@ -8,7 +8,7 @@ async function sendAuthCode() {
     }
 
     if (!validatePassword(password)) {
-        alert('パスワードは8文字以上で、大文字、小文字、数字、特殊文字を含める必要があります。');
+        alert('パスワードは8文字以上で、半角アルファベット、数字、記号を組み合わせて作成してください。');
         return;
     }
 
@@ -26,8 +26,8 @@ function validateEmail(email) {
 }
 
 function validatePassword(password) {
-    // パスワードが8文字以上で、大文字、小文字、数字、特殊文字を含む必要がある
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // パスワードが8文字以上で、半角アルファベット、数字、記号を含む必要がある
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordRegex.test(password);
 }
 
