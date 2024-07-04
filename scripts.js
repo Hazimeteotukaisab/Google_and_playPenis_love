@@ -3,7 +3,7 @@ async function sendAuthCode() {
     const password = document.getElementById('password').value;
 
     if (!validateEmail(email)) {
-        alert('有効なメールアドレスを入力してください。');
+        alert('有効なGmailアドレスを入力してください。');
         return;
     }
 
@@ -21,7 +21,8 @@ async function sendAuthCode() {
 }
 
 function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // emailが@gmail.comで終わるかどうかをチェック
+    const emailRegex = /^[^\s@]+@gmail\.com$/;
     return emailRegex.test(email);
 }
 
