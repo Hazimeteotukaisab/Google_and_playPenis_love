@@ -12,6 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column; /* 縦方向に要素を配置 */
         }
         .centered-text {
             font-size: 24px;
@@ -19,10 +20,23 @@
             border: 2px solid white;
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.7); /* 背景に半透明の白を追加 */
+            margin-bottom: 20px; /* テキストとボタンの間に余白を追加 */
+        }
+        .move-to-index {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff; /* ボタンの背景色を青に設定 */
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-decoration: none; /* リンクの下線を非表示 */
+            position: fixed;
+            bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="centered-text">なななななななたら</div>
+    <div class="centered-text">中央の文字</div>
+    <a href="index.html" class="move-to-index">index.html に移動する</a>
 </body>
 </html>
