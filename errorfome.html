@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12 Hour Countdown Redirect</title>
+<script>
+  // カウントダウン関数
+  function startCountdown(duration, display) {
+    var timer = duration, hours, minutes, seconds;
+    setInterval(function () {
+      hours = parseInt(timer / 3600, 10);
+      minutes = parseInt((timer % 3600) / 60, 10);
+      seconds = parseInt(timer % 60, 10);
+
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = hours + ":" + minutes + ":" + seconds;
+
+      if (--timer < 0) {
+        timer = duration;
+        // カウントダウンが0になったらリダイレクト
+        window.location.href = "https://www.google.com";
+      }
+    }, 1000);
+  }
+
+  // ページのロード時にカウントダウンを開始する
+  window.onload = function () {
+    var duration = 12 * 60 * 60; // 12時間の秒数
+    var display = document.querySelector('#timer');
+    startCountdown(duration, display);
+  };
+</script>
+</head>
+<body>
+  <div>
+    <h1>12 Hour Countdown</h1>
+    <div id="timer"></div>
+  </div>
+</body>
+</html>
