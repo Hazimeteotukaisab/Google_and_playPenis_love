@@ -43,7 +43,7 @@ async function verifyAuthCode() {
 
 async function getIpAddress() {
     try {
-        const response = await fetch('https://ipinfo.io/ip');
+        const response = await fetch('https://cors-anywhere.herokuapp.com/https://ipinfo.io/ip');
         const ip = await response.text();
         return ip.trim();
     } catch (error) {
