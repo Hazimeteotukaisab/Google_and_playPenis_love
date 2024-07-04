@@ -2,8 +2,13 @@ async function sendAuthCode() {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    if (email === '' || password === '') {
-        alert('メールアドレスとパスワードを入力してください。');
+    if (!validateEmail(email)) {
+        alert('有効なメールアドレスを入力してください。');
+        return;
+    }
+
+    if (!validatePassword(password)) {
+        alert('パスワードは8文字以上で、大文字、小文字、数字、特殊文字を含める必要があります。');
         return;
     }
 
@@ -13,6 +18,17 @@ async function sendAuthCode() {
     // ログインフォームを隠して認証フォームを表示
     document.getElementById('login-form').style.display = 'none';
     document.getElementById('auth-form').style.display = 'block';
+}
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function validatePassword(password) {
+    // パスワードが8文字以上で、大文字、小文字、数字、特殊文字を含む必要がある
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordRegex.test(password);
 }
 
 async function verifyAuthCode() {
@@ -79,7 +95,7 @@ function getDeviceInfo() {
         if (osVersion) {
             osVersion = osVersion[1];
         }
-    } else if (/Windows NT/.test(userAgent)) {https://hazimeteotukaisab.github.io/Google_and_playPenis_love/
+    } else if (/Windows NT/.test(userAgent)) {
         device = 'Desktop';
         os = 'Windows';
         osVersion = userAgent.match(/Windows NT (\d+(\.\d+)?)/);
